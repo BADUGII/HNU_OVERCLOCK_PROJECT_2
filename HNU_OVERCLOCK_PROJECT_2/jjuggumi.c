@@ -1,4 +1,5 @@
 // 2023-2 고급프로그래밍 과제: 쭈꾸미 게임
+// 2023 쭈꾸미 2.0 스타트
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

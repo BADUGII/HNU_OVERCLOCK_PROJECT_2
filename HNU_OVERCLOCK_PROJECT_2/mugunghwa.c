@@ -193,7 +193,7 @@ void mugunghwa(void) {
 			}
 			while (1) {
 				key_t key = get_key();
-				if (player[0] == 1 && a_flag = true) {
+				if (player[0] == 1) {
 					if (key == K_QUIT) {
 						break;
 					}

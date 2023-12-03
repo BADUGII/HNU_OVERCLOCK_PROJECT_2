@@ -45,7 +45,7 @@ bool pass(int x, int y) {
 void mugunghwa_init(void) {
 	map_init(13, 40);
 	for (int i = 0; i < 3; i++) {
-		x = i+5;
+		x = i + 5;
 		y = 1;
 		px[i] = x;
 		py[i] = y;
@@ -75,7 +75,7 @@ void move_manual(key_t key) {
 	case K_UP: dir = DIR_UP; break;
 	case K_DOWN: dir = DIR_DOWN; break;
 	case K_LEFT: dir = DIR_LEFT; break;
-	case K_RIGHT: dir = DIR_RIGHT; break;	
+	case K_RIGHT: dir = DIR_RIGHT; break;
 	default: return;
 	}
 
@@ -170,7 +170,7 @@ void mugunghwa(void) {
 		//printf("%d %d %d", player, nx, ny);
 		// player 1 부터는 랜덤으로 움직임(8방향)
 		for (int i = 1; i < n_player; i++) {
-			if (tick % period[i] == 0) {
+			if (tick % period[i] == 0 && player[i] == true) {
 				move_random(i, -1);
 			}
 		}
@@ -181,19 +181,19 @@ void mugunghwa(void) {
 				if (player[i] == 0) {
 					continue;
 				}
-				if (!pass_player && !randint(0,9) && !hide(px[i], py[i])) {
+				if (!pass_player && !randint(0, 9) && !hide(px[i], py[i])) {
 					move_random(i, -1);
 					stop_moving = 0;
 					back_buf[px[i]][py[i]] = ' ';
 					player[i] = false;
 					n_alive = n_alive - 1;
-					char dialog_empty[100] = { (char)i + '0',' ','p','l','a','y','e','r',' ','d','i','e', NULL};
+					char dialog_empty[100] = { (char)i + '0',' ','p','l','a','y','e','r',' ','d','i','e', NULL };
 					dialog(dialog_empty);
 				}
 			}
 			while (1) {
 				key_t key = get_key();
-				if (player[0] == 1) {
+				if (player[0] == 1 && a_flag = true) {
 					if (key == K_QUIT) {
 						break;
 					}

@@ -14,6 +14,9 @@ void outro_np();
 void winner_outro_p();
 void mugunghwa_ment();
 void mugunghwa_ment_clean();
+void jebi_display(void);
+void jebi_print_status(void);
+void jebi_dialog();
 
 // (zero-base) row행, col열로 커서 이동
 void gotoxy(int row, int col) {
@@ -63,6 +66,16 @@ void display(void) {
 	gotoxy(N_ROW + 3, 0);  // 추가로 표시할 정보가 있으면 맵과 상태창 사이의 빈 공간에 출력
 	//mugunghwa_ment();
 	print_status();
+}
+
+void jebi_display(void) {
+	draw();
+	gotoxy(N_ROW, 0);
+	jebi_print_status();
+}
+void jebi_print_status(void) {
+	printf("round %d, turn : player % 2d",0, n_player); 
+	//0부분에 나중에 만들 라운드 값 대입 (n_player부분에 if문으로 구조체 alive살아 있는 애들만 넣는 함수 만들면 될듯)
 }
 
 //무궁화 꽃이 피었습니다
@@ -191,6 +204,49 @@ void dialog(char message[]) {
 			printf(" ");
 		}
 		gotoxy_x=gotoxy_x + 1;
+	}
+}
+
+
+void jebi_dialog(char message[]) {
+	//dialog에서 받아온 char 값을 가운데 정렬 시켜주는 코드
+	//입력으로 13자리가 넘으면 안됨.
+	//예시) dialog("1234567890123");
+	int gotoxy_x = 1, gotoxy_y = 1;
+	for (int message_count = DIALOG_DURATION_SEC; message_count >= 1; message_count--) {
+		int message_length = strlen(message);
+		int spaces = ((16 - message_length) / 2) - 1;
+		gotoxy(gotoxy_x, gotoxy_y);
+		printf("****************\n");
+		gotoxy(gotoxy_x + 1, gotoxy_y);
+		printf("*");
+		printf("%d", message_count);
+		for (int i = 0; i < spaces; i++) {
+			printf(" ");
+		}
+		printf("%s", message);
+		if (message_length % 2 != 0) {
+			for (int i = 0; i < spaces; i++) {
+				printf(" ");
+			}
+		}
+		else {
+			for (int j = 0; j < spaces - 1; j++) {
+				printf(" ");
+			}
+		}
+		printf("*\n");
+		gotoxy(gotoxy_x + 2, gotoxy_y);
+		printf("****************\n");
+		Sleep(1000);
+	}
+	//준비 메세지 지우는 코드
+	for (int h = 0; h < 3; h++) {
+		gotoxy(gotoxy_x, gotoxy_y);
+		for (int j = 0; j < 16; j++) {
+			printf(" ");
+		}
+		gotoxy_x = gotoxy_x + 1;
 	}
 }
 

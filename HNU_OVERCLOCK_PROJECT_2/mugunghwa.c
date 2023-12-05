@@ -128,12 +128,14 @@ void move_tail(int player, int nx, int ny) {
 	px[p] = nx;
 	py[p] = ny;
 }
+
 void camera_on(void) {
 	for (int i = 0; i < 3; i++) {
 		gotoxy(i + 5, 1);
 		printf("@");
 	}
 }
+
 void camera_off(void) {
 	for (int i = 0; i < 3; i++) {
 		gotoxy(i + 5, 1);

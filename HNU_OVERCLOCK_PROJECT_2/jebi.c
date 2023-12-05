@@ -9,57 +9,19 @@
 void jebi_init(void);
 void jebi_move_manual(key_t key);
 void jebi_move_tail(int i, int nx, int ny);
+void jebi(void);
 
-
-int px[PLAYER_MAX], py[PLAYER_MAX];
+int px[PLAYER_MAX], py[PLAYER_MAX], period[PLAYER_MAX];
 int nb = 2;
 
 int randjebi;
 int jebi_result[PLAYER_MAX];
 
 void jebi_init(void) {
-	if (n_player == 10) {
-		map_init(5, 32);
-	}
-	else if (n_player == 9) {
-		map_init(5, 29);
-	}
-	else if (n_player == 8) {
-		map_init(5, 26);
-	}
-	else if (n_player == 7) {
-		map_init(5, 23);
-	}
-	else if (n_player == 6) {
-		map_init(5, 20);
-	}
-	else if (n_player == 5) {
-		map_init(5, 17);
-	}
-	else if (n_player == 4) {
-		map_init(5, 14);
-	}
-	else if (n_player == 3) {
-		map_init(5, 11);
-	}
-	else if (n_player == 2) {
-		map_init(5, 8);
-	}
-	else if (n_player == 1) {
-		printf("error");
-	}
-	else if (n_player == 0) {
-		printf("error");
-	}
-
-	int x, y;
-	x = 2;
-	y = 2;
-	px[0] = x;
-	py[0] = y;
-	back_buf[px[0]][py[0]] = '0';
-	draw();
+	map_init(5, 18);
+	tick = 0;
 }
+
 void jebi_move_manual(key_t key) {
 	static int dx[4] = { -1, 1, 0, 0 };
 	static int dy[4] = { 0, 0, -1, 1 };
@@ -75,8 +37,6 @@ void jebi_move_manual(key_t key) {
 	int nx, ny;
 	nx = px[0] + dx[dir];
 	ny = py[0] + dy[dir];
-	
-
 	jebi_move_tail(0, nx, ny);
 }
 
@@ -86,6 +46,16 @@ void jebi_move_tail(int player , int nx, int ny) {
 	back_buf[px[p]][py[p]] = ' ';
 	px[p] = nx;
 	py[p] = ny;
+}
+
+ //제비를 프린트문으로 만드는게 맞는 걸까 라는 생각이 듦.
+//내가 생각한 알고리즘은 제비하나 하나의 좌표(x,y)를 인식해서 @로 바꾸는걸 생각했었음.
+void jebi_note(void) { //?출력 코드
+	gotoxy(2, 2);
+	for (int i = 0; i < 3; i++) { //i < n n함수에 남은 플레이어 수 쓰면 됨(player alive) 플레이어 수 만큼 쪽지 생성해야함)
+		printf("?");
+		printf(" ");
+	}
 }
 
 void jebi(void) {
@@ -100,11 +70,22 @@ void jebi(void) {
 	}
 	*/
 	jebi_init();
+	jebi_display();
+	jebi_dialog("-준비-");
+	//밑에 jebi_dialog는 나중에 if문으로 거르기
+	//jebi_dialog("player 0 fail!");
+	//jebi_dialog("player 0 pass!");
+	jebi_display();
+	jebi_note();
 	while (1) {
 		jebi_init();
 		key_t key = get_key();
 		if (key == K_QUIT) {
 			break;
+		}
+		else if (key == K_SPACE) {
+			//(제비 성공 or실패 if문 쓰기
+			jebi_dialog("player 0 fail!");
 		}
 		else if (key != K_UNDEFINED) {
 			jebi_move_manual(key);

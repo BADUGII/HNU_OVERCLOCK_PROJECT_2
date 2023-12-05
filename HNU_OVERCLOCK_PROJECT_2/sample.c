@@ -59,9 +59,7 @@ void smove_manual(key_t key) {
 void smove_random(int player, int dir) {
 	int p = player;  // 이름이 길어서...
 	int nx, ny;  // 움직여서 다음에 놓일 자리
-
 	// 움직일 공간이 없는 경우는 없다고 가정(무한 루프에 빠짐)	
-
 	do {
 		nx = px[p] + randint(-1, 1);
 		ny = py[p] + randint(-1, 1);
@@ -81,7 +79,6 @@ void smove_tail(int player, int nx, int ny) {
 
 void sample(void) {
 	sample_init();
-
 	system("cls");
 	display();
 	while (1) {
@@ -93,14 +90,12 @@ void sample(void) {
 		else if (key != K_UNDEFINED) {
 			smove_manual(key);
 		}
-
 		// player 1 부터는 랜덤으로 움직임(8방향)
 		for (int i = 1; i < n_player; i++) {
 			if (tick % period[i] == 0) {
 				smove_random(i, -1);
 			}
 		}
-
 		display();
 		Sleep(10);
 		tick += 10;

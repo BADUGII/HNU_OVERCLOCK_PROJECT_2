@@ -77,17 +77,17 @@ int jjuggumi_init() {
 */
 
 int main(void) {
-	intro();
+	//intro();
 	old_jjuggumi_init();
 	if (n_player_trigger == 1) {
 		outro_np();
 		exit(0);
 	}
-	sample();
+	//sample();
 	//mugunghwa();
 	//outro_p();	
 	//nightgame();
 	//juldarigi();
-	//jebi();
+	jebi();
 	return 0;
 }

@@ -83,10 +83,11 @@ int main(void) {
 		outro_np();
 		exit(0);
 	}
+	sample();
 	//mugunghwa();
 	//outro_p();	
 	//nightgame();
 	//juldarigi();
-	jebi();
+	//jebi();
 	return 0;
 }

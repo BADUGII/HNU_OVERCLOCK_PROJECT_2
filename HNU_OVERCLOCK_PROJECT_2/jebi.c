@@ -52,7 +52,8 @@ void jebi_move_tail(int player , int nx, int ny) {
 //내가 생각한 알고리즘은 제비하나 하나의 좌표(x,y)를 인식해서 @로 바꾸는걸 생각했었음.
 void jebi_note(void) { //?출력 코드
 	gotoxy(2, 2);
-	for (int i = 0; i < 3; i++) { //i < n n함수에 남은 플레이어 수 쓰면 됨(player alive) 플레이어 수 만큼 쪽지 생성해야함)
+	int n = 8;
+	for (int i = 0; i < n; i++) { //i < n n함수에 남은 플레이어 수 쓰면 됨(player alive) 플레이어 수 만큼 쪽지 생성해야함)
 		printf("?");
 		printf(" ");
 	}
@@ -71,7 +72,7 @@ void jebi(void) {
 	*/
 	jebi_init();
 	jebi_display();
-	jebi_dialog("-준비-");
+	//jebi_dialog("-준비-"); //dialog는 디버그 테스트 중에 거슬려서 주석처리 해놓았음.
 	//밑에 jebi_dialog는 나중에 if문으로 거르기
 	//jebi_dialog("player 0 fail!");
 	//jebi_dialog("player 0 pass!");
@@ -79,6 +80,7 @@ void jebi(void) {
 	jebi_note();
 	while (1) {
 		jebi_init();
+		//draw();
 		key_t key = get_key();
 		if (key == K_QUIT) {
 			break;
@@ -89,6 +91,7 @@ void jebi(void) {
 		}
 		else if (key != K_UNDEFINED) {
 			jebi_move_manual(key);
+			draw();
 		}
 	}
 

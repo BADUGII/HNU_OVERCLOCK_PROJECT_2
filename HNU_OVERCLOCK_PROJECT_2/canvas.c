@@ -81,7 +81,7 @@ void jebi_print_status(void) {
 //무궁화 꽃이 피었습니다
 int mugunghwa_ment_count = 0;
 
-void mugunghwa_ment() {
+void mugunghwa_ment(void) {
 	//mugunghwa_ment_flag = 1; //무궁화 멘트 플래그 실행 되고 있을때 움직여도 괜찮음. 플래그 상태 1 / 0일때 움직이면 죽는걸로 고고
 	//printf("%d\n", tick);
 	if (yh_stop == 0 && tick % 100 == 0) {
@@ -162,7 +162,7 @@ void draw(void) {
 void print_status(void) {
 	printf("no. of players left: %d \n", n_alive);
 	for (int p = 0; p < n_player; p++) {
-		printf("player %2d: %5s\n", p, player[p] ? "alive" : "DEAD");		
+		printf("player %2d: %5s\n", p, player[p].is_alive ? "alive" : "DEAD");		
 	}
 }
 

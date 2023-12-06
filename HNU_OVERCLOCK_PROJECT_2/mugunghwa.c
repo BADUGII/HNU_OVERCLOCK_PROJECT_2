@@ -156,7 +156,7 @@ void mugunghwa(void) {
 		for (int i = 0; i < n_player; i++) {
 			if (py[i] == 1) {
 				back_buf[px[i]][py[i]] = ' ';
-				player[i] = true;
+				player[i].is_alive = true;
 				clear_player++;
 			}
 		}
@@ -172,7 +172,7 @@ void mugunghwa(void) {
 		//printf("%d %d %d", player, nx, ny);
 		// player 1 부터는 랜덤으로 움직임(8방향)
 		for (int i = 1; i < n_player; i++) {
-			if (tick % period[i] == 0 && player[i] == true) {
+			if (tick % period[i] == 0 && player[i].is_alive == true) {
 				move_random(i, -1);
 			}
 		}
@@ -180,14 +180,14 @@ void mugunghwa(void) {
 			camera_on();
 			stop_moving = randint(1, 10); //10퍼센트
 			for (int i = 1; i < n_player; i++) {
-				if (player[i] == 0) {
+				if (player[i].pass == true) {
 					continue;
 				}
 				if (!pass_player && !randint(0, 9) && !hide(px[i], py[i])) {
 					move_random(i, -1);
 					stop_moving = 0;
 					back_buf[px[i]][py[i]] = ' ';
-					player[i] = false;
+					player[i].is_alive = false;
 					n_alive = n_alive - 1;
 					char dialog_empty[100] = { (char)i + '0',' ','p','l','a','y','e','r',' ','d','i','e', NULL };
 					dialog(dialog_empty);
@@ -195,7 +195,7 @@ void mugunghwa(void) {
 			}
 			while (1) {
 				key_t key = get_key();
-				if (player[0] == 1) {
+				if (player[0].pass == false) {
 					if (key == K_QUIT) {
 						break;
 					}
@@ -218,7 +218,7 @@ void mugunghwa(void) {
 			//!hide(px[i], py[i])
 			if (a_flag && !hide(px[0], py[0])) {
 				back_buf[px[0]][py[0]] = ' ';
-				player[0] = false;
+				player[0].is_alive = false;
 				n_alive = n_alive - 1;
 				dialog("0 player die");
 			}
@@ -229,7 +229,7 @@ void mugunghwa(void) {
 		display();
 		if (n_alive == 1) {
 			for (int i = 0; i < n_player; i++) {
-				if (player[i] == true) {
+				if (player[i].is_alive == true) {
 					winner_player = i;
 				}
 			}

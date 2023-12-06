@@ -34,7 +34,7 @@ int old_jjuggumi_init(void) {
 	}
 	n_alive = n_player;
 	for (int i = 0; i < n_player; i++) {
-		player[i] = true;
+		player[i].is_alive = true;
 		n_alive_arr[i] = i;
 	}
 	system("cls");
@@ -84,10 +84,10 @@ int main(void) {
 		exit(0);
 	}
 	//sample();
-	//mugunghwa();
+	mugunghwa();
 	//outro_p();	
 	//nightgame();
 	//juldarigi();
-	jebi();
+	//jebi();
 	return 0;
 }

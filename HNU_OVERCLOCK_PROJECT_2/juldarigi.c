@@ -9,15 +9,17 @@ void juldarigi_init(void);
 
 void juldarigi_init(void) {
 	map_init_sharp(3, 29);
-	int x, y;
+	int x, y, t1 = 17, t2 = 13;
 	for (int i = 0; i < n_player; i++) {
-		// 같은 자리가 나오면 다시 생성
-		do {
-			x = N_ROW - 2;
-			do {
-				y = randint(1, N_COL - 2);
-			} while (N_COL - 20 <= y && y <= N_COL - 8);
-		} while (!placable(x, y));
+		x = N_ROW - 2;
+		if (i % 2 == 0) {
+			y = N_COL - t1;
+			t1++;
+		}
+		else {
+			y = N_COL - t2;
+			t2--;
+		}
 		px[i] = x;
 		py[i] = y;
 

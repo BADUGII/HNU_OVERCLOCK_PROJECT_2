@@ -90,7 +90,7 @@ int jjuggumi_init() {
 			&(item[i].stamina_buf));
 	}
 	fclose(fp);
-	return -1;
+	return 0;
 }
 
 int main(void) {

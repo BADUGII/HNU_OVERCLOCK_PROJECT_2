@@ -16,7 +16,7 @@ int nb = 2;
 
 int randjebi;
 int jebi_result[PLAYER_MAX];
-int jebi_move_stack = 0;
+int jebi_move_stack = 1;
 
 void jebi_init(void) {
     map_init(5, 18);
@@ -42,21 +42,37 @@ void jebi_move_manual(key_t key) {
     static int dx[4] = { -1, 1, 0, 0 };
     static int dy[4] = { 0, 0, -1, 1 };
 
+    int jebi_switch_temp_1;
+    int jebi_switch_temp_2 = NULL;
     int dir;  // 움직일 방향(0~3);
     switch (key) {
-    case K_LEFT: dir = DIR_LEFT; jebi_move_stack = jebi_move_stack - 1; break;
-    case K_RIGHT: dir = DIR_RIGHT; jebi_move_stack = jebi_move_stack + 1; break;
+    case K_LEFT: dir = DIR_LEFT; jebi_move_stack -= 1; jebi_switch_temp_1 = 0; break;
+    case K_RIGHT: dir = DIR_RIGHT; jebi_move_stack += 1; jebi_switch_temp_1 = 1; break;
     default: return;
     }
-    back_buf[px[jebi_move_stack]][py[jebi_move_stack]] = '?';
     // 움직여서 놓일 자리
     int nx, ny;
     nx = px[0] + dx[dir];
     ny = py[0] + dy[dir];
-    /*if (!jebi_placable(nx, ny)) {
-       return;
-    }*/
+    if (placable(nx, ny)) {
+        if (dir == DIR_LEFT) {
+            jebi_move_stack += 1;
+        }else if(dir == DIR_RIGHT) {
+            jebi_move_stack -= 1;
+        }
+        return;
+    } //씨ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ발!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //머리가 녹아내려어어어어ㅓ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //만들려는 코드 : 이 전에 입력한 값과 현재 입력값이 다르면 반대반향으로 2칸씩 옮겨야하는 코드
     smove_tail(0, nx, ny);
+    if (jebi_switch_temp_1 != jebi_switch_temp_2) {
+        jebi_switch_temp_1 = jebi_switch_temp_2;
+    }
+    else {
+        jebi_move_stack += 2;
+        jebi_switch_temp_1 = jebi_switch_temp_2;
+    }
+    back_buf[2][jebi_move_stack] = '?';
 }
 
 void jebi_move_tail(int player, int nx, int ny) {
@@ -97,7 +113,6 @@ void jebi(void) {
     jebi_display();
     //jebi_note();
     while (1) {
-        //draw();
         key_t key = get_key();
         if (key == K_QUIT) {
             break;

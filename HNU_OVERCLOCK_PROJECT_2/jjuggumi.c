@@ -43,6 +43,18 @@ int old_jjuggumi_init(void) {
 }
 */
 int jjuggumi_init() {
+	n_player = PLAYER_MAX;
+	if (n_player <= PLAYER_MAX) { //PLAYER_MAX °ª = 10
+		n_player_trigger = 0;
+	}
+	else {
+		n_player_trigger = 1;
+	}
+	n_alive = n_player;
+	for (int i = 0; i < n_player; i++) {
+		player[i].is_alive = true;
+		n_alive_arr[i] = i;
+	}
 	system("cls");
 	srand((unsigned int)time(NULL));
 	FILE* fp;
@@ -86,10 +98,10 @@ int main(void) {
 		exit(0);
 	}
 	//sample();
-	//mugunghwa();
+	mugunghwa();
 	//outro_p();	
 	//nightgame();
-	juldarigi();
+	//juldarigi();
 	//jebi();
 	return 0;
 }

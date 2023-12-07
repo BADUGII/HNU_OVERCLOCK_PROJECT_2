@@ -180,8 +180,9 @@ void draw(void) {
 
 void print_status(void) {
 	printf("no. of players left: %d \n", n_alive);
+	printf("                  intl       str     stm\n");
 	for (int p = 0; p < n_player; p++) {
-		printf("player %2d: %5s\n", p, player[p].is_alive ? "alive" : "DEAD");		
+		printf("player %2d: %5s %3d(+%d)%6d(+%d)%6d%%\n", p, player[p].is_alive ? "alive" : "DEAD", player[p].intel, 0, player[p].str, 0, player[p].stamina);
 	}
 }
 

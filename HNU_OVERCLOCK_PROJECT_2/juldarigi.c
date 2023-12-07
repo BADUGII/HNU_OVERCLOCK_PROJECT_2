@@ -51,7 +51,12 @@ void juldarigi_move_random(int player, int dir) {
 	int percent = 0;
 	// 움직일 공간이 없는 경우는 없다고 가정(무한 루프에 빠짐)
 	do {
-		
+		if (key == DIR_S_UP) {
+			random_xy = 1;
+		}
+		else if (key == DIR_S_DOWN) {
+			random_xy = 2;
+		}
 		switch (random_xy) {
 		case 1: nx = px[p] + 0, ny = py[p] + +1; break; //뒤로
 		case 2: nx = px[p] + 0, ny = py[p] + -1; break; //앞으로

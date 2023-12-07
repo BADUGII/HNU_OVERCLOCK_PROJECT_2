@@ -11,6 +11,10 @@ bool is_valid(key_t key) {
 		K_LEFT,
 		K_RIGHT,		
 		K_QUIT,
+		K_STR_DOWN,
+		K_STR_UP,
+		K_L_SKILL,
+		K_R_SKILL,
 		K_SPACE
 	};
 

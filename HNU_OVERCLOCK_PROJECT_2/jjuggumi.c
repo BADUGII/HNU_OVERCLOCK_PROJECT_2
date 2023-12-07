@@ -101,7 +101,7 @@ int main(void) {
 	//mugunghwa();
 	//outro_p();	
 	//nightgame();
-	//juldarigi();
-	jebi();
+	juldarigi();
+	//jebi();
 	return 0;
 }

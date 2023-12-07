@@ -13,6 +13,10 @@
 #define K_LEFT		75
 #define K_RIGHT		77
 #define K_QUIT		'q'
+#define K_STR_DOWN  'z'
+#define K_STR_UP	'/'
+#define K_L_SKILL	'x'
+#define K_R_SKILL	'.'
 #define K_UNDEFINED	'\0'
 #define K_SPACE		32
 

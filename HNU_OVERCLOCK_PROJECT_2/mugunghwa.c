@@ -170,7 +170,7 @@ void mugunghwa(void) {
 		}
 		mugunghwa_ment();
 		//printf("%d %d %d", player, nx, ny);
-		// player 1 부터는 랜덤으로 움직임(8방향)
+		// player 1 부터는 랜덤으로 움직임(3방향)
 		for (int i = 1; i < n_player; i++) {
 			if (tick % period[i] == 0 && player[i].is_alive == true) {
 				move_random(i, -1);

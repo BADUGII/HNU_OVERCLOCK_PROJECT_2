@@ -24,9 +24,16 @@ void jebi_init(void) {
 		// 같은 자리가 나오면 다시 생성
 		px[i] = 2;
 		py[i] = 2 + i;
-		back_buf[px[i]][py[i]] = '?';
+		//@가 제비를 선택한 표시인데 표시를 움직여야하니 @를 첫번째에 생성함.
+		if (i == 0) {
+			back_buf[px[i]][py[i]] = '@';
+		}
+		else {
+			back_buf[px[i]][py[i]] = '?';
+		}
 	}
 	tick = 0;
+	draw();
 }
 
 void jebi_move_manual(key_t key) {
@@ -87,9 +94,8 @@ void jebi(void) {
 	//jebi_dialog("player 0 fail!");
 	//jebi_dialog("player 0 pass!");
 	jebi_display();
-	jebi_note();
+	//jebi_note();
 	while (1) {
-		jebi_init();
 		//draw();
 		key_t key = get_key();
 		if (key == K_QUIT) {

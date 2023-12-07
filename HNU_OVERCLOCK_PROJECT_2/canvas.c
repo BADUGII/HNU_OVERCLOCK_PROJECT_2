@@ -196,7 +196,7 @@ void dialog(char message[]) {
 		int spaces = ((16 - message_length) / 2) - 1;
 		gotoxy(gotoxy_x, gotoxy_y);
 		printf("****************\n");
-		gotoxy(gotoxy_x+1, gotoxy_y);
+		gotoxy(gotoxy_x + 1, gotoxy_y);
 		printf("*");
 		printf("%d", message_count);
 		for (int i = 0; i < spaces; i++) {
@@ -207,7 +207,8 @@ void dialog(char message[]) {
 			for (int i = 0; i < spaces; i++) {
 				printf(" ");
 			}
-		}else {
+		}
+		else {
 			for (int j = 0; j < spaces - 1; j++) {
 				printf(" ");
 			}
@@ -217,15 +218,16 @@ void dialog(char message[]) {
 		printf("****************\n");
 		Sleep(1000);
 	}
-//준비 메세지 지우는 코드
+	//준비 메세지 지우는 코드
 	for (int h = 0; h < 3; h++) {
 		gotoxy(gotoxy_x, gotoxy_y);
 		for (int j = 0; j < 16; j++) {
 			printf(" ");
 		}
-		gotoxy_x=gotoxy_x + 1;
+		gotoxy_x = gotoxy_x + 1;
 	}
 }
+
 
 
 void jebi_dialog(char message[]) {
@@ -269,6 +271,7 @@ void jebi_dialog(char message[]) {
 		gotoxy_x = gotoxy_x + 1;
 	}
 }
+
 
 //intro
 void intro() {

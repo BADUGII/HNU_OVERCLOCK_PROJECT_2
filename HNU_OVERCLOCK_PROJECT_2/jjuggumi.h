@@ -38,7 +38,7 @@ bool yh_stop;
 void sample(void);
 void mugunghwa(void);
 //void nightgame(void);
-//void juldarigi(void);
+void juldarigi(void);
 void jebi(void);
 
 int randint(int low, int high);

@@ -19,7 +19,7 @@ char back_buf[ROW_MAX][COL_MAX];
 int N_ROW, N_COL;
 
 void map_init(int n_row, int n_col);
-
+void map_init_sharp(int n_row, int n_col);
 //dialog¼±¾ð
 void dialog(char message[]);
 

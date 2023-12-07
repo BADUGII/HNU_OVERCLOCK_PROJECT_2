@@ -4,8 +4,7 @@
 #include <stdio.h>
 
 void juldarigi(void) {
-	printf("############## ##############\n");
-	printf("#            ---            #\n");
-	printf("############## ##############\n");
+	map_init_sharp(3, 29);
+	draw();
 
 }

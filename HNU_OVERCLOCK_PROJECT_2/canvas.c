@@ -50,6 +50,25 @@ void map_init(int n_row, int n_col) {
 	}
 }
 
+void map_init_sharp(int n_row, int n_col) {
+	// 두 버퍼를를 완전히 비우기
+	for (int i = 0; i < ROW_MAX; i++) {
+		for (int j = 0; j < COL_MAX; j++) {
+			back_buf[i][j] = front_buf[i][j] = ' ';
+		}
+	}
+	N_ROW = n_row;
+	N_COL = n_col;
+	for (int i = 0; i < N_ROW; i++) {
+		// 대입문 이렇게 쓸 수 있는데 일부러 안 가르쳐줬음
+		back_buf[i][0] = back_buf[i][N_COL - 1] = '#';
+
+		for (int j = 1; j < N_COL - 1; j++) {
+			back_buf[i][j] = (i == 0 || i == N_ROW - 1) ? '#' : ' ';
+		}
+	}
+}
+
 // back_buf[row][col]이 이동할 수 있는 자리인지 확인하는 함수
 bool placable(int row, int col) {
 	if (row < 0 || row >= N_ROW ||

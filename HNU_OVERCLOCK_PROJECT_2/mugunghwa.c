@@ -86,7 +86,6 @@ void move_manual(key_t key) {
 	if (!placable(nx, ny)) {
 		return;
 	}
-
 	move_tail(0, nx, ny);
 }
 // 0 <= dir < 4가 아니면 랜덤

@@ -84,10 +84,10 @@ int main(void) {
 		exit(0);
 	}
 	//sample();
-	mugunghwa();
+	//mugunghwa();
 	//outro_p();	
 	//nightgame();
 	//juldarigi();
-	//jebi();
+	jebi();
 	return 0;
 }

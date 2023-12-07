@@ -19,10 +19,18 @@ int jebi_result[PLAYER_MAX];
 
 void jebi_init(void) {
 	map_init(5, 18);
+	int x, y;
+	for (int i = 0; i < n_player; i++) {
+		// 같은 자리가 나오면 다시 생성
+		px[i] = 2;
+		py[i] = 2 + i;
+		back_buf[px[i]][py[i]] = '?';
+	}
 	tick = 0;
 }
 
 void jebi_move_manual(key_t key) {
+	// 각 방향으로 움직일 때 x, y값 delta
 	static int dx[4] = { -1, 1, 0, 0 };
 	static int dy[4] = { 0, 0, -1, 1 };
 
@@ -37,7 +45,10 @@ void jebi_move_manual(key_t key) {
 	int nx, ny;
 	nx = px[0] + dx[dir];
 	ny = py[0] + dy[dir];
-	jebi_move_tail(0, nx, ny);
+	if (!placable(nx, ny)) {
+		return;
+	}
+	smove_tail(0, nx, ny);
 }
 
 void jebi_move_tail(int player , int nx, int ny) {
@@ -52,11 +63,9 @@ void jebi_move_tail(int player , int nx, int ny) {
 //내가 생각한 알고리즘은 제비하나 하나의 좌표(x,y)를 인식해서 @로 바꾸는걸 생각했었음.
 void jebi_note(void) { //?출력 코드
 	gotoxy(2, 2);
-	int n = 8;
-	for (int i = 0; i < n; i++) { //i < n n함수에 남은 플레이어 수 쓰면 됨(player alive) 플레이어 수 만큼 쪽지 생성해야함)
+	/*for (int i = 0; i < n_alive; i++) { //플레이어 수 만큼 쪽지 생성해야함)
 		printf("?");
-		printf(" ");
-	}
+	}*/
 }
 
 void jebi(void) {
@@ -70,6 +79,7 @@ void jebi(void) {
 		nb += 2;
 	}
 	*/
+	int jebi_chance_randint = randint(1, n_player); //살아 있는 사람 수 중에 하나를 제비 당첨으로 뽑기 위한 코드
 	jebi_init();
 	jebi_display();
 	//jebi_dialog("-준비-"); //dialog는 디버그 테스트 중에 거슬려서 주석처리 해놓았음.
@@ -93,8 +103,8 @@ void jebi(void) {
 			jebi_move_manual(key);
 			draw();
 		}
+		tick += 10;
 	}
-
 	/*
 	randjebi = randint(0, n_player - 1);
 	for (int i = 0; i < n_player; i++) {

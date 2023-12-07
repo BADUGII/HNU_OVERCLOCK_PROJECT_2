@@ -45,22 +45,6 @@ int old_jjuggumi_init(void) {
 int jjuggumi_init() {
 	system("cls");
 	srand((unsigned int)time(NULL));
-	printf("쭈꾸미 게임 최대 플레이어 : %d\n", PLAYER_MAX);
-	printf("플레이어 수 : ");
-	scanf_s("%d", &n_player);
-	if (n_player <= PLAYER_MAX) { //PLAYER_MAX 값 = 10
-		n_player_trigger = 0;
-	}
-	else {
-		n_player_trigger = 1;
-	}
-	n_alive = n_player;
-	for (int i = 0; i < n_player; i++) {
-		player[i].is_alive = true;
-		n_alive_arr[i] = i;
-	}
-	system("cls");
-	
 	FILE* fp;
 	fopen_s(&fp, DATA_FILE, "r");
 	if (fp == NULL) {

@@ -96,7 +96,6 @@ void sample(void) {
 				smove_random(i, -1);
 			}
 		}
-		display();
 		Sleep(10);
 		tick += 10;
 	}

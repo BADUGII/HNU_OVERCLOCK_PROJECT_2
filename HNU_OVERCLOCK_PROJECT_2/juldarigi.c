@@ -39,7 +39,7 @@ void juldarigi_init(void) {
 		y = 13+i;
 		lx[i] = x;
 		ly[i] = y;
-		back_buf[px[i]][py[i]] = '-';
+		back_buf[lx[i]][ly[i]] = '-';
 	}
 
 	for (int i = 0; i < n_player; i++) {

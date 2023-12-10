@@ -13,7 +13,7 @@
 
 int px[PLAYER_MAX], py[PLAYER_MAX];
 int lx[3], ly[3];
-double str = 0, str_r = 0, str_l = 0, tmp_str;
+double str = 0, str_r = 0, str_l = 0, tmp = 0;
 bool stop_or_go; //더 땡길지 말지 정하는 신호
 int r_skill = 1, l_skill = 1;
 
@@ -77,10 +77,11 @@ void print_str(void) {
 			str_l += player[i].str;
 		}
 	}
-	str = (-str_r) + str_l;
+	str = (-str_r) + str_l + tmp;
 	gotoxy(N_ROW + 1, 0);
-	printf("str:%5.1f", tmp_str);
+	printf("str:%5.1f", str);
 }
+
 
 bool juldarigi_placable(int y) {
 	if (y == 6 || y == 22) {
@@ -133,6 +134,7 @@ void juldarigi_right(void) {
 		if (ny == 14) {
 			stop_or_go = false;
 			gotoxy(N_ROW + 1, 0);
+			player[i].is_alive = false;
 			continue;
 		}
 		juldarigi_move_tail(i, nx, ny);
@@ -159,12 +161,13 @@ void juldarigi_left(void) {
 			move_tail_for_line(i, nx, ny);
 		}
 	}
-	for (int i = 1; i <= n_player-1; i += 2) {
+	for (int i = 1; i <= 10; i += 2) {
 		nx = px[i] + 0;
 		ny = py[i] - 1;
 		if (ny == 14) {
 			stop_or_go = false;
 			gotoxy(N_ROW + 1, 0);
+			player[i].is_alive = false;
 			continue;
 		}
 		juldarigi_move_tail(i, nx, ny);
@@ -190,7 +193,6 @@ void right_skill(void) {
 void juldarigi(void) {
 	juldarigi_init();
 	print_str();
-	tmp_str = str;
 	display();
 	dialog(" -준비- ");
 	while (1) {
@@ -199,10 +201,10 @@ void juldarigi(void) {
 			break;
 		}
 		else if (key == K_STR_DOWN) {
-			tmp_str -= 1;
+			tmp -= 1;
 		}
 		else if (key == K_STR_UP) {
-			tmp_str += 1;
+			tmp += 1;
 		}
 		else if (key == K_L_SKILL) {
 			left_skill();
@@ -214,7 +216,7 @@ void juldarigi(void) {
 		}
 		print_str();
 		if (tick % 3000 == 0) {
-			if (tmp_str > 0) {
+			if (str > 0) {
 				if (r_skill == 2) {
 					juldarigi_right();
 					juldarigi_right();
@@ -228,7 +230,7 @@ void juldarigi(void) {
 				}
 				tick = 0;
 			}
-			else if (tmp_str < 0) {
+			else if (str < 0) {
 				if (l_skill == 2) {
 					juldarigi_left();
 					juldarigi_left();

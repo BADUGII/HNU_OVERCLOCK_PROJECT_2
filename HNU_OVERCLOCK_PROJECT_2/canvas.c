@@ -14,9 +14,10 @@ void outro_np();
 void winner_outro_p();
 void mugunghwa_ment();
 void mugunghwa_ment_clean();
-void jebi_display(void);
+void jebi_display(jebi_round, jebi_pass_player);
 void jebi_print_status(void);
 void jebi_dialog();
+void jebi_mia();
 
 // (zero-base) row행, col열로 커서 이동
 void gotoxy(int row, int col) {
@@ -87,13 +88,13 @@ void display(void) {
 	print_status();
 }
 
-void jebi_display(void) {
+void jebi_display(jebi_round, jebi_pass_player) {
 	draw();
 	gotoxy(N_ROW, 0);
-	jebi_print_status();
+	jebi_print_status(jebi_round, jebi_pass_player);
 }
-void jebi_print_status(void) {
-	printf("round %d, turn : player % 2d",0, n_player); 
+void jebi_print_status(jebi_round, jebi_pass_player) {
+	printf("round %d, turn : player % 2d", jebi_round, jebi_pass_player);
 	//0부분에 나중에 만들 라운드 값 대입 (n_player부분에 if문으로 구조체 alive살아 있는 애들만 넣는 함수 만들면 될듯)
 }
 
@@ -269,6 +270,14 @@ void jebi_dialog(char message[]) {
 			printf(" ");
 		}
 		gotoxy_x = gotoxy_x + 1;
+	}
+}
+
+void jebi_mia(char message[]) {
+	//준비 메세지 지우는 코드
+	gotoxy(2, 2);
+	for (int i = 0; i < n_player; i++) {
+		printf("?");
 	}
 }
 

@@ -103,7 +103,7 @@ void jebi(void) {
         }
         else if (key == K_SPACE) {
             //(제비 성공 or실패 if문 쓰기
-            if (jebi_move_stack == jebi_chance_randint) {
+            if (jebi_move_stack != jebi_chance_randint) {
                 jebi_dialog("player pass!");//
                 jebi_round += 1;
                 jebi_mia();

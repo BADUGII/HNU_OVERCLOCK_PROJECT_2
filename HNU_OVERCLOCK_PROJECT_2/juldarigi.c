@@ -79,7 +79,7 @@ void print_str(void) {
 	}
 	str = (-str_r) + str_l;
 	gotoxy(N_ROW + 1, 0);
-	printf("str:%5.1f", str);
+	printf("str:%5.1f", tmp_str);
 }
 
 bool juldarigi_placable(int y) {

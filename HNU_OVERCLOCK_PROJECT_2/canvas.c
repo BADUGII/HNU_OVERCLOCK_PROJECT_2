@@ -94,6 +94,8 @@ void jebi_display(jebi_round, jebi_pass_player) {
 	jebi_print_status(jebi_round, jebi_pass_player);
 }
 void jebi_print_status(jebi_round, jebi_pass_player) {
+	printf("                                                                                           ");
+	gotoxy(N_ROW, 0);
 	printf("round %d, turn : player % 2d", jebi_round, jebi_pass_player);
 	//0부분에 나중에 만들 라운드 값 대입 (n_player부분에 if문으로 구조체 alive살아 있는 애들만 넣는 함수 만들면 될듯)
 }
@@ -274,11 +276,11 @@ void jebi_dialog(char message[]) {
 }
 
 void jebi_mia(char message[]) {
-	//준비 메세지 지우는 코드
 	gotoxy(2, 2);
-	for (int i = 0; i < n_player; i++) {
+	for (int i = 0; i < n_alive; i++) {
 		printf("?");
 	}
+	gotoxy(2, 2);
 }
 
 

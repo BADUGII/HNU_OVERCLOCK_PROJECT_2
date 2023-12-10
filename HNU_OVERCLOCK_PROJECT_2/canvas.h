@@ -25,6 +25,7 @@ void dialog(char message[]);
 
 //앞에 뭐 있냐 확인 변수인 placable 선언
 bool placable(int row, int col);
+bool juldarigi_placable(int y);
 
 //display 선언
 void display(void);

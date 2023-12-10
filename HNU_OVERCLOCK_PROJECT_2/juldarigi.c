@@ -177,6 +177,7 @@ void juldarigi_left(void) {
 void left_skill(void) {
 	for (int i = 0; i <= n_player - 2; i += 2) {
 		player[i].str *= 2;
+		player[i].stamina -= 30;
 		gotoxy(N_ROW, 0);
 		printf("Â¦¼öÆÀ ´¯±â »ç¿ë!");
 	}
@@ -185,6 +186,7 @@ void left_skill(void) {
 void right_skill(void) {
 	for (int i = 1; i <= n_player - 1; i += 2) {
 		player[i].str *= 2;
+		player[i].stamina -= 30;
 		gotoxy(N_ROW, 0);
 		printf("È¦¼öÆÀ ´¯±â »ç¿ë!");
 	}
@@ -207,12 +209,28 @@ void juldarigi(void) {
 			tmp += 1;
 		}
 		else if (key == K_L_SKILL) {
-			left_skill();
-			l_skill = 2;
+			for (int i = 0; i <= n_player - 2; i += 2) {
+				if (player[i].stamina >= 30) {
+					left_skill();
+					l_skill = 2;
+				}
+				else {
+					gotoxy(N_ROW, 0);
+					printf("½ºÅ×¹Ì³ª ºÎÁ·, ´¯±â ½ÇÆÐ!");
+				}
+			}
 		}
 		else if (key == K_R_SKILL) {
-			right_skill();
-			r_skill = 2;
+			for (int i = 1; i <= n_player - 1; i += 2) {
+				if (player[i].stamina >= 30) {
+					right_skill();
+					r_skill = 2;
+				}
+				else {
+					gotoxy(N_ROW, 0);
+					printf("½ºÅ×¹Ì³ª ºÎÁ·, ´¯±â ½ÇÆÐ!");
+				}
+			}
 		}
 		print_str();
 		if (tick % 3000 == 0) {
@@ -244,6 +262,8 @@ void juldarigi(void) {
 				}
 				tick = 0;
 			}
+			gotoxy(N_ROW, 0);
+			printf("                               ");
 		}
 		Sleep(10);
 		tick += 10;

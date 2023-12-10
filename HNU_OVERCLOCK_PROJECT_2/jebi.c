@@ -37,17 +37,19 @@ void jebi_init(void) {
     draw();
 }
 
+int jebi_flag = 1;
+int jebi_flag_temp = 1;
+//제비를 프린트문으로 만드는게 맞는 걸까 라는 생각이 듦.
+//내가 생각한 알고리즘은 제비하나 하나의 좌표(x,y)를 인식해서 @로 바꾸는걸 생각했었음.
 void jebi_move_manual(key_t key) {
     // 각 방향으로 움직일 때 x, y값 delta
     static int dx[4] = { -1, 1, 0, 0 };
     static int dy[4] = { 0, 0, -1, 1 };
 
-    int jebi_switch_temp_1;
-    int jebi_switch_temp_2 = NULL;
     int dir;  // 움직일 방향(0~3);
     switch (key) {
-    case K_LEFT: dir = DIR_LEFT; jebi_move_stack -= 1; jebi_switch_temp_1 = 0; break;
-    case K_RIGHT: dir = DIR_RIGHT; jebi_move_stack += 1; jebi_switch_temp_1 = 1; break;
+    case K_LEFT: dir = DIR_LEFT; jebi_move_stack -= 1; jebi_flag_temp = 0; break; //0이 왼쪽
+    case K_RIGHT: dir = DIR_RIGHT; jebi_move_stack += 1; jebi_flag_temp = 1; break; //1이 오른쪽
     default: return;
     }
     // 움직여서 놓일 자리
@@ -61,16 +63,20 @@ void jebi_move_manual(key_t key) {
             jebi_move_stack -= 1;
         }
         return;
-    } //씨ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ발!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //머리가 녹아내려어어어어ㅓ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    }
     //만들려는 코드 : 이 전에 입력한 값과 현재 입력값이 다르면 반대반향으로 2칸씩 옮겨야하는 코드
     smove_tail(0, nx, ny);
-    if (jebi_switch_temp_1 != jebi_switch_temp_2) {
-        jebi_switch_temp_1 = jebi_switch_temp_2;
+    if (jebi_flag_temp != jebi_flag) {
+        if (jebi_flag_temp == 0) {
+            jebi_move_stack += 2;
+        }
+        else if (jebi_flag_temp == 1) {
+            jebi_move_stack -= 2;
+        }
+        jebi_flag = jebi_flag_temp;
     }
     else {
-        jebi_move_stack += 2;
-        jebi_switch_temp_1 = jebi_switch_temp_2;
+        jebi_flag_temp = jebi_flag;
     }
     back_buf[2][jebi_move_stack] = '?';
 }
@@ -83,43 +89,38 @@ void jebi_move_tail(int player, int nx, int ny) {
     py[p] = ny;
 }
 
-//제비를 프린트문으로 만드는게 맞는 걸까 라는 생각이 듦.
-//내가 생각한 알고리즘은 제비하나 하나의 좌표(x,y)를 인식해서 @로 바꾸는걸 생각했었음.
-void jebi_note(void) { //?출력 코드
-    gotoxy(2, 2);
-    /*for (int i = 0; i < n_alive; i++) { //플레이어 수 만큼 쪽지 생성해야함)
-       printf("?");
-    }*/
-}
-
+int jebi_pass_player = 0;
+int jebi_round = 0;
 void jebi(void) {
-    /*
-    for (int i = 0; i < n_player; i++) {
-       x = 2;
-       y = i+nb;
-       px[i] = x;
-       py[i] = y;
-       back_buf[px[i]][py[i]] = '?';
-       nb += 2;
-    }
-    */
-    int jebi_chance_randint = randint(1, n_player); //살아 있는 사람 수 중에 하나를 제비 당첨으로 뽑기 위한 코드
+    int jebi_chance_randint = randint(1, n_alive); //살아 있는 사람 수 중에 하나를 제비 당첨으로 뽑기 위한 코드
     jebi_init();
-    jebi_display();
+    jebi_display(jebi_round, n_alive);
     //jebi_dialog("-준비-"); //dialog는 디버그 테스트 중에 거슬려서 주석처리 해놓았음.
-    //밑에 jebi_dialog는 나중에 if문으로 거르기
-    //jebi_dialog("player 0 fail!");
-    //jebi_dialog("player 0 pass!");
-    jebi_display();
-    //jebi_note();
     while (1) {
-        key_t key = get_key();
+        key_t key = get_key(); //get_key 에서 space를 인식 못함
         if (key == K_QUIT) {
             break;
         }
         else if (key == K_SPACE) {
             //(제비 성공 or실패 if문 쓰기
-            jebi_dialog("player 0 fail!");
+            if (jebi_move_stack == jebi_chance_randint) {
+                jebi_dialog("player pass!");//
+                jebi_round += 1;
+                jebi_mia();
+                jebi_display(jebi_round, n_alive);
+            }
+            else {
+                jebi_dialog("player fail!"); //실패할때 마다 n_alive하나씩 없어짐.
+                n_alive -= 1;
+                jebi_round += 1;
+                jebi_chance_randint = randint(1, n_alive);
+                jebi_mia();
+                jebi_display(jebi_round, n_alive);
+                if (n_alive == 1) {
+                    jebi_dialog("Game End!");
+                    break;
+                }
+            }
         }
         else if (key != K_UNDEFINED) {
             jebi_move_manual(key);
@@ -127,18 +128,4 @@ void jebi(void) {
         }
         tick += 10;
     }
-    /*
-    randjebi = randint(0, n_player - 1);
-    for (int i = 0; i < n_player; i++) {
-       if (randjebi == i) {
-          jebi_result[i] = 1;
-       }
-       else {
-          jebi_result[i] == 0;
-       }
-    }
-    for (int i = 0; i < n_player; i++) {
-       printf("%d ", jebi_result[i]);
-    }
-    */
 }

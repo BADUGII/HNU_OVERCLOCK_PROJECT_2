@@ -209,28 +209,12 @@ void juldarigi(void) {
 			tmp += 1;
 		}
 		else if (key == K_L_SKILL) {
-			for (int i = 0; i <= n_player - 2; i += 2) {
-				if (player[i].stamina >= 30) {
-					left_skill();
-					l_skill = 2;
-				}
-				else {
-					gotoxy(N_ROW, 0);
-					printf("스테미나 부족, 눕기 실패!");
-				}
-			}
+			left_skill();
+			l_skill = 2;
 		}
 		else if (key == K_R_SKILL) {
-			for (int i = 1; i <= n_player - 1; i += 2) {
-				if (player[i].stamina >= 30) {
-					right_skill();
-					r_skill = 2;
-				}
-				else {
-					gotoxy(N_ROW, 0);
-					printf("스테미나 부족, 눕기 실패!");
-				}
-			}
+			right_skill();
+			r_skill = 2;
 		}
 		print_str();
 		if (tick % 3000 == 0) {
@@ -263,7 +247,7 @@ void juldarigi(void) {
 				tick = 0;
 			}
 			gotoxy(N_ROW, 0);
-			printf("                               ");
+			printf("                      ");
 		}
 		Sleep(10);
 		tick += 10;

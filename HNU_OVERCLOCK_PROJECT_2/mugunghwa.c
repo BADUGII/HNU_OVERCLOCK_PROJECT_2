@@ -237,7 +237,7 @@ void mugunghwa(void) {
 		}
 		if (n_alive == clear_player) {
 			outro_p();
-			exit(0);
+			break;
 		}
 		Sleep(10);
 		tick += 10;

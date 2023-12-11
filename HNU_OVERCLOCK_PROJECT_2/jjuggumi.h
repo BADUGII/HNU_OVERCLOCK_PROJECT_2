@@ -28,10 +28,11 @@ typedef struct {
 PLAYER player[PLAYER_MAX]; // 기본값 true, 탈락하면 false => player[i].is_alive
 
 //bool player[PLAYER_MAX];
+bool failed_player[PLAYER_MAX];
 int n_player, n_alive, n_alive_arr[PLAYER_MAX], winner_player;
 int n_item;
+int jul;
 int tick;  // 시계
-int skill_tick;
 int stop_tick;
 bool yh_stop;
 

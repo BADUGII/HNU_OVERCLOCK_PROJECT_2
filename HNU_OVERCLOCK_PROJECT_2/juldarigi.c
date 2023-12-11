@@ -212,13 +212,13 @@ void juldarigi(void) {
 		}
 	}
 
+	for (int i = 0; i < n_player; i++) {
+		player[i].is_alive = true;
+	}
 	juldarigi_init();
 	print_str();
 	display();
 	dialog(" -ÁØºñ- ");
-	for (int i = 0; i < n_player; i++) {
-		player[i].is_alive = true;
-	}
 	while (1) {
 		key_t key = get_key();
 		if (key == K_QUIT) {
@@ -290,5 +290,15 @@ void juldarigi(void) {
 		Sleep(10);
 		tick += 10;
 		display();
+		if (player[8].is_alive == false || player[9].is_alive == false) {
+			n_alive = 0;
+			for (int i = 0; i < n_player; i++) {
+				if (player[i].is_alive == true) {
+					n_alive++;
+				}
+			}
+			outro_p();
+			break;
+		}
 	}
 }

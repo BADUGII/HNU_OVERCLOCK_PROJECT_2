@@ -99,9 +99,9 @@ int main(void) {
 		exit(0);
 	}
 	//sample();
-	//mugunghwa();
+	mugunghwa();
 	//outro_p();	
-	//nightgame();
+	//nightgame(); //Æ÷±â
 	jul = 1;
 	juldarigi();
 	jebi();

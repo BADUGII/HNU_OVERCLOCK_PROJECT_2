@@ -91,10 +91,11 @@ void jebi_move_tail(int player, int nx, int ny) {
 
 int jebi_pass_player = 0;
 int jebi_round = 0;
+int jebi_player_stack = 0;
 void jebi(void) {
     int jebi_chance_randint = randint(1, n_alive); //살아 있는 사람 수 중에 하나를 제비 당첨으로 뽑기 위한 코드
     jebi_init();
-    jebi_display(jebi_round, n_alive);
+    jebi_display(jebi_round, jebi_player_stack);
     //jebi_dialog("-준비-"); //dialog는 디버그 테스트 중에 거슬려서 주석처리 해놓았음.
     while (1) {
         key_t key = get_key(); //get_key 에서 space를 인식 못함
@@ -105,17 +106,38 @@ void jebi(void) {
             //(제비 성공 or실패 if문 쓰기
             if (jebi_move_stack != jebi_chance_randint) {
                 jebi_dialog("player pass!");//
-                jebi_round += 1;
                 jebi_mia();
-                jebi_display(jebi_round, n_alive);
+                while (1) {
+                    jebi_player_stack += 1;
+                    if (jebi_player_stack == 10) {
+                        jebi_player_stack = 0;
+                        break;
+                    }
+                    if (player[jebi_player_stack].is_alive == true) {
+                        break;
+                    }
+                }
+
+                jebi_display(jebi_round, jebi_player_stack);
             }
             else {
                 jebi_dialog("player fail!"); //실패할때 마다 n_alive하나씩 없어짐.
+                player[jebi_player_stack].is_alive = false;
                 n_alive -= 1;
                 jebi_round += 1;
                 jebi_chance_randint = randint(1, n_alive);
                 jebi_mia();
-                jebi_display(jebi_round, n_alive);
+                while (1) {
+                    jebi_player_stack += 1;
+                    if (jebi_player_stack == n_alive) {
+                        jebi_player_stack = 0;
+                        break;
+                    }
+                    if (player[jebi_player_stack].is_alive == true) {
+                        break;
+                    }
+                }
+                jebi_display(jebi_round, jebi_player_stack);
                 if (n_alive == 1) {
                     jebi_dialog("Game End!");
                     break;

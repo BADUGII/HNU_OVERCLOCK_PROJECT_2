@@ -140,6 +140,12 @@ void jebi(void) {
                 jebi_display(jebi_round, jebi_player_stack);
                 if (n_alive == 1) {
                     jebi_dialog("Game End!");
+                    for (int i = 0; i < n_player; i++) {
+                        if (player[i].is_alive == true) {
+                            winner_player = i;
+                        }
+                    }
+                    winner_outro_p();
                     break;
                 }
             }

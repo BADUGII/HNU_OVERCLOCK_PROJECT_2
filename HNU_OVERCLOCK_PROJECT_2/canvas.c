@@ -293,6 +293,13 @@ void jebi_mia(char message[]) {
 	gotoxy(2, 2);
 }
 
+void jebi_temp_mia(int stack) {
+	gotoxy(2, 2);
+	for (int i = 0; i < stack; i++) {
+		printf("?");
+	}
+	gotoxy(2, 2);
+}
 
 //intro
 void intro() {

@@ -92,6 +92,7 @@ void jebi_move_tail(int player, int nx, int ny) {
 int jebi_pass_player = 0;
 int jebi_round = 0;
 int jebi_player_stack = 0;
+int temp_mia_stack = 0;
 void jebi(void) {
     int jebi_chance_randint = randint(1, n_alive); //살아 있는 사람 수 중에 하나를 제비 당첨으로 뽑기 위한 코드
     jebi_init();
@@ -105,8 +106,17 @@ void jebi(void) {
         else if (key == K_SPACE) {
             //(제비 성공 or실패 if문 쓰기
             if (jebi_move_stack != jebi_chance_randint) {
-                jebi_dialog("player pass!");//
-                jebi_mia();
+                jebi_dialog("player pass!");
+                if (jebi_move_stack < jebi_chance_randint) {
+                    jebi_chance_randint -= 1;
+                    temp_mia_stack += 1;
+                    int temp_mia_input = n_alive - temp_mia_stack;
+                    jebi_temp_mia(temp_mia_input);
+                }
+                else {
+                    temp_mia_stack += 1;
+                    jebi_temp_mia(n_alive-jebi_move_stack);
+                }
                 while (1) {
                     jebi_player_stack += 1;
                     if (jebi_player_stack == 10) {
@@ -117,13 +127,13 @@ void jebi(void) {
                         break;
                     }
                 }
-
                 jebi_display(jebi_round, jebi_player_stack);
             }
             else {
                 jebi_dialog("player fail!"); //실패할때 마다 n_alive하나씩 없어짐.
                 player[jebi_player_stack].is_alive = false;
                 n_alive -= 1;
+                temp_mia_stack = 0;
                 jebi_round += 1;
                 jebi_chance_randint = randint(1, n_alive);
                 jebi_mia();

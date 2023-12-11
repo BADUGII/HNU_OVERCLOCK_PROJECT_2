@@ -21,7 +21,7 @@ int jebi_move_stack = 1;
 void jebi_init(void) {
     map_init(5, 18);
     int x, y;
-    for (int i = 0; i < n_player; i++) {
+    for (int i = 0; i < n_alive; i++) {
         // 같은 자리가 나오면 다시 생성
         px[i] = 2;
         py[i] = 2 + i;

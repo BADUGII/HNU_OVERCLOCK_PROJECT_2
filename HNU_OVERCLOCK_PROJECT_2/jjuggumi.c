@@ -91,7 +91,7 @@ int jjuggumi_init() {
 
 int main(void) {
 	jul = 0;
-	//intro();
+	intro();
 	//old_jjuggumi_init();
 	jjuggumi_init();
 	if (n_player_trigger == 1) {
@@ -99,7 +99,7 @@ int main(void) {
 		exit(0);
 	}
 	//sample();
-	//mugunghwa();
+	mugunghwa();
 	//outro_p();	
 	//nightgame(); //Æ÷±â
 	jul = 1;

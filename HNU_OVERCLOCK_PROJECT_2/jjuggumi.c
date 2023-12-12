@@ -102,8 +102,8 @@ int main(void) {
 	//mugunghwa();
 	//outro_p();	
 	//nightgame(); //Æ÷±â
-	//jul = 1;
-	//juldarigi();
+	jul = 1;
+	juldarigi();
 	jebi();
 	return 0;
 }
